@@ -1,7 +1,7 @@
 from typing import List
 
-from forgetting_operators_logic_programming.classes.logic_program import LogicProgram
-from forgetting_operators_logic_programming.classes.rule import Rule
+from ForgettingWeb.classes.logic_program import LogicProgram
+from ForgettingWeb.classes.rule import Rule
 
 
 def read_input_program(input_program_str_list: List[str]) -> LogicProgram:

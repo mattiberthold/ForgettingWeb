@@ -1,7 +1,7 @@
 import unittest
 
-from forgetting_operators_logic_programming.classes.rule import Rule
-from forgetting_operators_logic_programming.import_export.read_demo_file import read_demo_file
+from ForgettingWeb.classes.rule import Rule
+from ForgettingWeb.import_export.read_demo_file import read_demo_file
 
 
 class TestReadFile(unittest.TestCase):

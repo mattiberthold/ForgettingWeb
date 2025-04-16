@@ -1,8 +1,8 @@
 import unittest
 
-from forgetting_operators_logic_programming.classes.rule import Rule
-from forgetting_operators_logic_programming.forgetting_modules.operator_normalize import NormalizeOperator
-from forgetting_operators_logic_programming.import_export.read_demo_file import read_demo_file
+from ForgettingWeb.classes.rule import Rule
+from ForgettingWeb.forgetting_modules.operator_normalize import NormalizeOperator
+from ForgettingWeb.import_export.read_demo_file import read_demo_file
 
 
 class TestNormaliseOperator(unittest.TestCase):

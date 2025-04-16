@@ -1,10 +1,10 @@
 from typing import List
 
-from forgetting_operators_logic_programming.classes.literal import Literal
-from forgetting_operators_logic_programming.classes.logic_program import LogicProgram
-from forgetting_operators_logic_programming.forgetting_modules.operator_normalize import NormalizeOperator
-from forgetting_operators_logic_programming.forgetting_modules.operator_ZFW_reduct import ZFWReduction
-from forgetting_operators_logic_programming.forgetting_modules.operator_program_sum import OperatorProgramSum
+from ForgettingWeb.classes.literal import Literal
+from ForgettingWeb.classes.logic_program import LogicProgram
+from ForgettingWeb.forgetting_modules.operator_normalize import NormalizeOperator
+from ForgettingWeb.forgetting_modules.operator_ZFW_reduct import ZFWReduction
+from ForgettingWeb.forgetting_modules.operator_program_sum import OperatorProgramSum
 
 
 class ForgetOperatorZFWWeak:

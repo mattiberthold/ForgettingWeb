@@ -1,5 +1,5 @@
-from forgetting_operators_logic_programming.classes.logic_program import LogicProgram
-from forgetting_operators_logic_programming.forgetting_modules.operator_rule_product import OperatorRuleProduct
+from ForgettingWeb.classes.logic_program import LogicProgram
+from ForgettingWeb.forgetting_modules.operator_rule_product import OperatorRuleProduct
 
 
 class OperatorProgramProduct:

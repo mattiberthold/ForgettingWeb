@@ -1,11 +1,11 @@
 import re
 from typing import List
 
-from forgetting_operators_logic_programming.classes.logic_program import LogicProgram
-from forgetting_operators_logic_programming.classes.rule import Rule
-from forgetting_operators_logic_programming.semantic_modules.ht_model import HTModel, ClassicalInterpretation
-from forgetting_operators_logic_programming.semantic_modules.ht_model_column import HTModelColumn
-from forgetting_operators_logic_programming.semantic_modules.sem_forgetting_instance import SemForgettingInstance
+from ForgettingWeb.classes.logic_program import LogicProgram
+from ForgettingWeb.classes.rule import Rule
+from ForgettingWeb.semantic_modules.ht_model import HTModel, ClassicalInterpretation
+from ForgettingWeb.semantic_modules.ht_model_column import HTModelColumn
+from ForgettingWeb.semantic_modules.sem_forgetting_instance import SemForgettingInstance
 
 
 def read_input_models(input_model_str: str):

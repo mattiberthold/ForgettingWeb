@@ -1,6 +1,6 @@
 from typing import List
 
-from forgetting_operators_logic_programming.classes.literal import Literal
+from ForgettingWeb.classes.literal import Literal
 
 
 def read_atoms_to_be_forgotten(input_str: str) -> List[Literal]:

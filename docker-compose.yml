@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  forgettingweb:
+    container_name: forgettingweb
+    build:
+      context: .
+    image: livinglab.scadsai.uni-leipzig.de/forgettingweb:latest
+    restart: always
+    ports:
+      - "8000:8000"

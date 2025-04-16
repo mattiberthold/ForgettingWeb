@@ -1,4 +1,4 @@
-from forgetting_operators_logic_programming.classes.rule import Rule
+from ForgettingWeb.classes.rule import Rule
 
 
 class OperatorRuleProduct:

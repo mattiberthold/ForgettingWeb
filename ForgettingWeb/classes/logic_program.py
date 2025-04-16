@@ -1,8 +1,8 @@
 from typing import Set
 
-from forgetting_operators_logic_programming.classes.literal import Literal
-from forgetting_operators_logic_programming.classes.rule import Rule
-from forgetting_operators_logic_programming.forgetting_modules.occurrence_partition import OccurrencePartition
+from ForgettingWeb.classes.literal import Literal
+from ForgettingWeb.classes.rule import Rule
+from ForgettingWeb.forgetting_modules.occurrence_partition import OccurrencePartition
 
 
 class LogicProgram(Set[Rule]):

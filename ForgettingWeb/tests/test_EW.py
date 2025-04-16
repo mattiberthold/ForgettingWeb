@@ -1,9 +1,9 @@
 import unittest
 
-from forgetting_operators_logic_programming.classes.literal import Literal
-from forgetting_operators_logic_programming.classes.logic_program import LogicProgram
-from forgetting_operators_logic_programming.classes.rule import Rule
-from forgetting_operators_logic_programming.forgetting_modules.forget_operator_forget3 import ForgetOperatorForget3
+from ForgettingWeb.classes.literal import Literal
+from ForgettingWeb.classes.logic_program import LogicProgram
+from ForgettingWeb.classes.rule import Rule
+from ForgettingWeb.forgetting_modules.forget_operator_forget3 import ForgetOperatorForget3
 
 
 class TestEW(unittest.TestCase):

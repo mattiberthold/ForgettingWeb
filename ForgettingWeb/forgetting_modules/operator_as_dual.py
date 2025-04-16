@@ -1,6 +1,6 @@
-from forgetting_operators_logic_programming.classes.literal import Literal
-from forgetting_operators_logic_programming.classes.logic_program import LogicProgram
-from forgetting_operators_logic_programming.classes.rule import Rule
+from ForgettingWeb.classes.literal import Literal
+from ForgettingWeb.classes.logic_program import LogicProgram
+from ForgettingWeb.classes.rule import Rule
 
 
 class OperatorASDual:

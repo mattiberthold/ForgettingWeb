@@ -1,9 +1,9 @@
 from itertools import chain, combinations
 from typing import Set
 
-from forgetting_operators_logic_programming.semantic_modules.operator_powerset import OperatorPowerset
-from forgetting_operators_logic_programming.semantic_modules.ht_model import HTModel
-from forgetting_operators_logic_programming.semantic_modules.ht_model import ClassicalInterpretation
+from ForgettingWeb.semantic_modules.operator_powerset import OperatorPowerset
+from ForgettingWeb.semantic_modules.ht_model import HTModel
+from ForgettingWeb.semantic_modules.ht_model import ClassicalInterpretation
 
 
 def create_ht_models(y: ClassicalInterpretation):

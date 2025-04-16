@@ -1,7 +1,7 @@
 import itertools
 
-from forgetting_operators_logic_programming.classes.logic_program import LogicProgram
-from forgetting_operators_logic_programming.classes.rule import Rule
+from ForgettingWeb.classes.logic_program import LogicProgram
+from ForgettingWeb.classes.rule import Rule
 
 
 class NormalizeOperator:
@@ -16,7 +16,7 @@ class NormalizeOperator:
         if not logic_program:
             return LogicProgram()
         # 1. Remove all tautological rules
-        print(logic_program)
+        # print(logic_program)
         keep_rules = {rule.copy() for rule in logic_program if not NormalizeOperator._rule_is_tautology(rule)}
 
         for keep_rule in keep_rules:

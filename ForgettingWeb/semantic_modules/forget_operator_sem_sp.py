@@ -1,9 +1,9 @@
 from typing import Set
 
-from forgetting_operators_logic_programming.semantic_modules.ht_model import ClassicalInterpretation
-from forgetting_operators_logic_programming.semantic_modules.ht_model_column import HTModelColumn
-from forgetting_operators_logic_programming.semantic_modules.operator_powerset import OperatorPowerset
-from forgetting_operators_logic_programming.semantic_modules.sem_forgetting_instance import SemForgettingInstance
+from ForgettingWeb.semantic_modules.ht_model import ClassicalInterpretation
+from ForgettingWeb.semantic_modules.ht_model_column import HTModelColumn
+from ForgettingWeb.semantic_modules.operator_powerset import OperatorPowerset
+from ForgettingWeb.semantic_modules.sem_forgetting_instance import SemForgettingInstance
 
 
 class ForgetOperatorSemSP:

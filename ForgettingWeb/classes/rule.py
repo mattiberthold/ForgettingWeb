@@ -1,6 +1,6 @@
 from typing import Set
 
-from forgetting_operators_logic_programming.classes.literal import Literal
+from ForgettingWeb.classes.literal import Literal
 
 
 class Rule:

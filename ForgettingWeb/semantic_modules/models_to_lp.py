@@ -1,12 +1,12 @@
 from itertools import chain, combinations
 from typing import Set
 
-from forgetting_operators_logic_programming.classes.literal import Literal
-from forgetting_operators_logic_programming.classes.logic_program import LogicProgram
-from forgetting_operators_logic_programming.classes.rule import Rule
-from forgetting_operators_logic_programming.semantic_modules.ht_model import ClassicalInterpretation, HTModel
-from forgetting_operators_logic_programming.semantic_modules.ht_model_column import HTModelColumn
-from forgetting_operators_logic_programming.semantic_modules.operator_powerset import OperatorPowerset
+from ForgettingWeb.classes.literal import Literal
+from ForgettingWeb.classes.logic_program import LogicProgram
+from ForgettingWeb.classes.rule import Rule
+from ForgettingWeb.semantic_modules.ht_model import ClassicalInterpretation, HTModel
+from ForgettingWeb.semantic_modules.ht_model_column import HTModelColumn
+from ForgettingWeb.semantic_modules.operator_powerset import OperatorPowerset
 
 
 class Models2LP:

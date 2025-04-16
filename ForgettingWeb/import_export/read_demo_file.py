@@ -1,10 +1,10 @@
 import pathlib
 from typing import Tuple, Set
 
-from forgetting_operators_logic_programming.classes.literal import Literal
-from forgetting_operators_logic_programming.classes.logic_program import LogicProgram
-from forgetting_operators_logic_programming.import_export.read_input_program import read_input_program
-from forgetting_operators_logic_programming.import_export.read_variables_to_be_forgotten import \
+from ForgettingWeb.classes.literal import Literal
+from ForgettingWeb.classes.logic_program import LogicProgram
+from ForgettingWeb.import_export.read_input_program import read_input_program
+from ForgettingWeb.import_export.read_variables_to_be_forgotten import \
     read_atoms_to_be_forgotten
 
 

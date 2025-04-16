@@ -4,22 +4,24 @@ from dash import Dash, html, dcc, Input, Output, State
 
 import dash_bootstrap_components as dbc
 
-from forgetting_operators_logic_programming.forgetting_modules.forget_operator_forget3 import ForgetOperatorForget3
-from forgetting_operators_logic_programming.forgetting_modules.forget_operator_r import ForgetOperatorR
-from forgetting_operators_logic_programming.forgetting_modules.forget_operator_semantic_wrapper import \
+from ForgettingWeb.forgetting_modules.forget_operator_forget3 import ForgetOperatorForget3
+from ForgettingWeb.forgetting_modules.forget_operator_r import ForgetOperatorR
+from ForgettingWeb.forgetting_modules.forget_operator_semantic_wrapper import \
     ForgetOperatorSemanticWrapper
-from forgetting_operators_logic_programming.forgetting_modules.forget_operator_sp import ForgetOperatorSP
-from forgetting_operators_logic_programming.forgetting_modules.forget_operator_sps import ForgetOperatorSPs
-from forgetting_operators_logic_programming.forgetting_modules.forget_operator_u import ForgetOperatorUniform
-from forgetting_operators_logic_programming.forgetting_modules.forget_operator_ZFW_strong import ForgetOperatorZFWStrong
-from forgetting_operators_logic_programming.forgetting_modules.forget_operator_ZFW_weak import ForgetOperatorZFWWeak
-from forgetting_operators_logic_programming.forgetting_modules.forget_operator_strong_as import ForgetOperatorStrongAS
-from forgetting_operators_logic_programming.import_export.read_semantical_program import read_input_models
-from forgetting_operators_logic_programming.import_export.read_input_program import read_input_program
-from forgetting_operators_logic_programming.import_export.read_variables_to_be_forgotten import \
+from ForgettingWeb.forgetting_modules.forget_operator_rR import ForgetOperatorRR
+from ForgettingWeb.forgetting_modules.forget_operator_rSP import ForgetOperatorRSP
+from ForgettingWeb.forgetting_modules.forget_operator_sp import ForgetOperatorSP
+from ForgettingWeb.forgetting_modules.forget_operator_sps import ForgetOperatorSPs
+from ForgettingWeb.forgetting_modules.forget_operator_u import ForgetOperatorUniform
+from ForgettingWeb.forgetting_modules.forget_operator_ZFW_strong import ForgetOperatorZFWStrong
+from ForgettingWeb.forgetting_modules.forget_operator_ZFW_weak import ForgetOperatorZFWWeak
+from ForgettingWeb.forgetting_modules.forget_operator_strong_as import ForgetOperatorStrongAS
+from ForgettingWeb.import_export.read_semantical_program import read_input_models
+from ForgettingWeb.import_export.read_input_program import read_input_program
+from ForgettingWeb.import_export.read_variables_to_be_forgotten import \
     read_atoms_to_be_forgotten
-from forgetting_operators_logic_programming.semantic_modules.lp_to_models import LP2Models
-from forgetting_operators_logic_programming.semantic_modules.models_to_lp import Models2LP
+from ForgettingWeb.semantic_modules.lp_to_models import LP2Models
+from ForgettingWeb.semantic_modules.models_to_lp import Models2LP
 
 app = Dash(__name__, title='ForgettingWeb', routes_pathname_prefix='/forgettingweb/',
            external_stylesheets=[dbc.themes.BOOTSTRAP])
@@ -51,12 +53,22 @@ left_column = html.Div(children=[
                           placeholder='For example:\na :- q\nb :- not q\nq :- c')),
     html.B(children='Forgetting atoms V'),
     html.Div(dcc.Input(id='input-forgetting-atoms-textbox', type='text', value='', placeholder='For example: q')),
+    html.B(id='hide1', children='Relativization atoms B'),
+    html.Div(dcc.Input(id='input-rel-atoms-textbox', type='text', value='', placeholder='For example: a, b, c'),
+             id='hide2')
 ], className='column', style={'width': '30%'})
 
 middle_column = html.Div([
     html.H4(children='Operator'),
     html.P('Choose the operator to be applied.'),
     html.Div(dcc.Dropdown(options=[
+        # {'label': dcc.Markdown('$\mathsf{f_{rSP\ test}}$', mathjax=True), 'value': 'FrSPtest'},
+        # {'label': dcc.Markdown('$\mathsf{f_{rR\ test}}$', mathjax=True), 'value': 'FrRtest'},
+        {'label': dcc.Markdown('$\mathsf{f_{rSP}}$ (Berthold 2024)', mathjax=True), 'value': 'FrSP'},
+        {'label': dcc.Markdown('$\mathsf{f_{rR}}$ (Berthold 2024)', mathjax=True), 'value': 'FrR'},
+        {'label': dcc.Markdown('$\mathsf{f_{rR}^{sem}}$ (Berthold 2024)', mathjax=True), 'value': 'FrR_sem'},
+        {'label': dcc.Markdown('$\mathsf{f_{rSP}^{sem}}$ (Saribatur and Woltran 2024)', mathjax=True),
+         'value': 'FrSP_sem'},
         {'label': dcc.Markdown('$\mathsf{f^*_{SP}}$ (Berthold 2022)', mathjax=True), 'value': 'Fsps'},
         {'label': dcc.Markdown('$\mathsf{f_R}$ (Berthold 2022)', mathjax=True), 'value': 'Fr'},
         {'label': dcc.Markdown('$\mathsf{f_{es}}$ (Aguardo et al. 2021)', mathjax=True), 'value': 'Fes'},
@@ -69,7 +81,8 @@ middle_column = html.Div([
         {'label': dcc.Markdown('$\mathsf{forget_3}$ (Eiter and Wang 2008)', mathjax=True), 'value': 'forget_3'},
         {'label': dcc.Markdown('$\mathsf{SForgetLP}$ (Zhang and Foo 2006)', mathjax=True), 'value': 'ZFW_Strong'},
         {'label': dcc.Markdown('$\mathsf{WForgetLP}$ (Zhang and Foo 2006)', mathjax=True), 'value': 'ZFW_Weak'},
-        {'label': dcc.Markdown('$\mathsf{aux_{cm}}$ (Cabalar and Ferraris 2007)', mathjax=True), 'value': 'Models2Program'}
+        {'label': dcc.Markdown('$\mathsf{aux_{cm}}$ (Cabalar and Ferraris 2007)', mathjax=True),
+         'value': 'Models2Program'}
     ], value='Fsps', id='operator-dropdown'), className='dropdown-container'),
     dbc.Modal([dbc.ModalHeader(dbc.ModalTitle('Operator explanation')),
                dbc.ModalBody(html.Div(id='operator-explanation'))],
@@ -120,13 +133,16 @@ def update_input(example_dropdown_value: str):
     Input('submit-value', 'n_clicks'),
     State('input-program-textbox', 'value'),
     State('input-forgetting-atoms-textbox', 'value'),
+    State('input-rel-atoms-textbox', 'value'),
     State('operator-dropdown', 'value')
 )
-def update_output(_nr_clicks, input_program_text, input_forgetting_atoms_text, operator_dropdown_text):
+def update_output(_nr_clicks, input_program_text, input_forgetting_atoms_text, input_rel_atoms_text,
+                  operator_dropdown_text):
     input_program_text_lines = input_program_text.split('\n')
     input_program = read_input_program(input_program_text_lines)
 
     forgetting_atoms = list(read_atoms_to_be_forgotten(input_forgetting_atoms_text))
+    rel_atoms = list(read_atoms_to_be_forgotten(input_rel_atoms_text))
 
     if operator_dropdown_text == 'Fr':
         output_program = ForgetOperatorR.apply(input_program, forgetting_atoms)
@@ -140,6 +156,20 @@ def update_output(_nr_clicks, input_program_text, input_forgetting_atoms_text, o
         output_program = ForgetOperatorSemanticWrapper.apply_sem_sp(input_program, forgetting_atoms)
     elif operator_dropdown_text == 'Fr_sem':
         output_program = ForgetOperatorSemanticWrapper.apply_sem_r(input_program, forgetting_atoms)
+    elif operator_dropdown_text == 'FrR':
+        output_program = ForgetOperatorRR.apply(input_program, forgetting_atoms, rel_atoms)
+    elif operator_dropdown_text == 'FrRtest':
+        output_program, normalized_result, semantic_result, correct = \
+            ForgetOperatorSemanticWrapper.apply_rR_test(input_program, forgetting_atoms, rel_atoms)
+    elif operator_dropdown_text == 'FrSPtest':
+        output_program, normalized_result, semantic_result, correct = \
+            ForgetOperatorSemanticWrapper.apply_rSP_test(input_program, forgetting_atoms, rel_atoms)
+    elif operator_dropdown_text == 'FrSP':
+        output_program = ForgetOperatorRSP.apply(input_program, forgetting_atoms, rel_atoms)
+    elif operator_dropdown_text == 'FrSP_sem':
+        output_program = ForgetOperatorSemanticWrapper.apply_sem_rSP(input_program, forgetting_atoms, rel_atoms)
+    elif operator_dropdown_text == 'FrR_sem':
+        output_program = ForgetOperatorSemanticWrapper.apply_sem_rR(input_program, forgetting_atoms, rel_atoms)
     elif operator_dropdown_text == 'Fm_sem':
         output_program = ForgetOperatorSemanticWrapper.apply_sem_m(input_program, forgetting_atoms)
     elif operator_dropdown_text == 'ZFW_Strong':
@@ -163,6 +193,14 @@ def update_output(_nr_clicks, input_program_text, input_forgetting_atoms_text, o
     else:
         output_program_str = str(output_program)
 
+    if operator_dropdown_text.endswith('test'):
+        return html.Div([
+            html.B('Result'), dcc.Textarea(value=output_program_str),
+            html.B('normalized Result'), dcc.Textarea(value=str(normalized_result)),
+            html.B('semantic Result'), dcc.Textarea(value=str(semantic_result)),
+            html.B('Correct?'), dcc.Textarea(value=str(correct))
+        ])
+
     if operator_dropdown_text.endswith('_sem'):
         # This was a semantic operator
         original_models = LP2Models.apply(input_program)
@@ -180,6 +218,20 @@ def update_output(_nr_clicks, input_program_text, input_forgetting_atoms_text, o
             dcc.Textarea(value=models_to_str(new_models))
         ])
     return [html.B('New program'), dcc.Textarea(value=output_program_str)]
+
+
+@app.callback(
+    Output('hide1', 'children'),
+    Output('hide2', 'children'),
+    Input('operator-dropdown', 'value'),
+)
+def update_rel_atom_input(operator_dropdown_text):
+    if operator_dropdown_text in {'FrSP_sem', 'FrR_sem', 'FrR', 'FrSP', 'FrRtest', 'FrSPtest'}:
+        return html.B(children='Relativization atoms B'),\
+            html.Div(dcc.Input(id='input-rel-atoms-textbox', type='text', value='', placeholder='For example: a, b, c'))
+    return html.B(children='Relativization atoms B', style={'display': 'none'}),\
+        html.Div(dcc.Input(id='input-rel-atoms-textbox', type='text', value='', placeholder='For example: a, b, c'),
+                 style={'display': 'none'})
 
 
 @app.callback(

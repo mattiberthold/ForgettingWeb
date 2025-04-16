@@ -1,6 +1,6 @@
 from typing import List
 
-from forgetting_operators_logic_programming.classes.logic_program import LogicProgram
+from ForgettingWeb.classes.logic_program import LogicProgram
 
 
 class OperatorProgramSum:

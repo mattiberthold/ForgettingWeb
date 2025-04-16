@@ -1,9 +1,8 @@
-from typing import List, Set
+from typing import Set
 
-from forgetting_operators_logic_programming.classes.literal import Literal
-from forgetting_operators_logic_programming.semantic_modules.ht_model import ClassicalInterpretation
-from forgetting_operators_logic_programming.semantic_modules.ht_model_column import HTModelColumn
-from forgetting_operators_logic_programming.semantic_modules.operator_powerset import OperatorPowerset
+from ForgettingWeb.semantic_modules.ht_model import ClassicalInterpretation
+from ForgettingWeb.semantic_modules.ht_model_column import HTModelColumn
+from ForgettingWeb.semantic_modules.operator_powerset import OperatorPowerset
 
 
 class SemForgettingInstance:
@@ -15,33 +14,33 @@ class SemForgettingInstance:
         self.v_literals = v_literals
         for y in OperatorPowerset.apply(y_wo_v_literals):
             self.sorted_columns[y] = set()
-            for c in sem_prog:
-                if c.y.difference(v_literals) == y:
-                    if c.is_relevant(v_literals):
-                        self.sorted_columns[y].add(c)
+            for col in sem_prog:
+                if col.y.difference(v_literals) == y:
+                    if col.is_relevant(v_literals):
+                        self.sorted_columns[y].add(col)
 
     def determine_omega(self):
         for y in OperatorPowerset.apply(self.y_wo_v_literals):
             if len(self.sorted_columns[y]) == 0:
                 self.omega[y] = False
                 continue
-            is_least_c = dict()
-            for c in self.sorted_columns[y]:
-                is_least_c[c] = True
+            is_least_col = dict()
+            for col in self.sorted_columns[y]:
+                is_least_col[col] = True
             for x in OperatorPowerset.apply(y):
                 exists_anti_witness = False
-                for c in self.sorted_columns[y]:
-                    if c.get_block_len(x, self.v_literals) == 0:
+                for col in self.sorted_columns[y]:
+                    if col.get_block_len(x, self.v_literals) == 0:
                         exists_anti_witness = True
                         break
                 if not exists_anti_witness:
                     continue
-                for c in self.sorted_columns[y]:
-                    if c.get_block_len(x, self.v_literals) > 0:
-                        is_least_c[c] = False
+                for col in self.sorted_columns[y]:
+                    if col.get_block_len(x, self.v_literals) > 0:
+                        is_least_col[col] = False
             self.omega[y] = True
-            for c in self.sorted_columns[y]:
-                if is_least_c[c]:
+            for col in self.sorted_columns[y]:
+                if is_least_col[col]:
                     self.omega[y] = False
                     break
 
